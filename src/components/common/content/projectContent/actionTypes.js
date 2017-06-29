@@ -1,0 +1,2 @@
+export const LOADING_BLOCK = 'LOADING/BLOCK';
+export const LOADING_NONE = 'LOADING/NONE';
