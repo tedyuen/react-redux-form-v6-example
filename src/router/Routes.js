@@ -6,15 +6,8 @@ import configureStore from '../store/configureStore';
 import { history } from '../router/history';
 import { MainRouter } from './MainRouter';
 
-let initStore = {
-  form:{
-    login:{
-      userName:'test',
-      password:'111111',
-    }
-  }
-}
-const store = configureStore(initStore);
+
+const store = configureStore();
 
 const Routes = () => (
   <Provider store={store}>
