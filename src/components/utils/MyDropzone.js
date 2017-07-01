@@ -24,5 +24,4 @@ class MyDropzone extends Component {
   }
 }
 
-
 export default MyDropzone;

@@ -4,12 +4,10 @@ require('dropify');
 
 class MyDropify extends Component {
   componentDidMount(){
-    $('.dropify').dropify({
-
-    });
+    $('.dropify').dropify();
   }
   render() {
-    const { input } = this.props
+    const { input,dataAllowedFileExtensions } = this.props
     const onAttachmentChange = (e) => {
         e.preventDefault();
         const files = [...e.target.files];
@@ -17,11 +15,13 @@ class MyDropify extends Component {
     };
     return (
       <div>
-        <input type="file"  onChange={onAttachmentChange} multiple className="dropify" data-allowed-file-extensions="doc docx txt pdf xls xlsx jpg png jpeg bmp" />
+        <input type="file"
+               onChange={onAttachmentChange}
+               className="dropify"
+               data-allowed-file-extensions={dataAllowedFileExtensions} />
       </div>
     )
   }
 }
-
 
 export default MyDropify;

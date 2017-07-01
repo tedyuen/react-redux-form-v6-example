@@ -1,10 +1,9 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import MyDropify from './MyDropify';
-import MyDropzone from './MyDropzone';
+import MyDropify from '../../utils/MyDropify';
+import MyDropzone from '../../utils/MyDropzone';
 const SimpleForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
-  // console.log('this should have the same value the store has', attachments.value && attachments.value[0]);
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -79,14 +78,19 @@ const SimpleForm = props => {
       </div>
       <div className="form-group">
         <div className="input-group">
-          <label htmlFor="id1">Dropify</label>
-          <Field component={MyDropify} name="inputfile1"></Field>
+          <label>Dropify</label>
+          <Field component={MyDropify}
+                 name="inputfile1"
+                 dataAllowedFileExtensions="doc docx txt pdf xls xlsx jpg png bmp"></Field>
         </div>
       </div>
       <div className="form-group">
         <div className="input-group">
-          <label htmlFor="id1">Dropzone</label>
-          <Field component={MyDropzone} name="inputfile2" desc="My Dropzone" accept="image/png,image/jpeg"></Field>
+          <label>Dropzone</label>
+          <Field component={MyDropzone}
+                 name="inputfile2"
+                 desc="My Dropzone"
+                 accept="image/png,image/jpeg"></Field>
         </div>
       </div>
       <div className="form-group">
