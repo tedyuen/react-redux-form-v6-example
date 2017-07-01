@@ -24,8 +24,9 @@
    * [reducer](#reducer)
    * [reducer.plugin](#reducer.plugin)
    * [SubmissionError](#SubmissionError)
-   * [Action Creators](#Action Creators)
+   * [Action Creators](#Action-Creators)
    * [Selectors](#Selectors)
+* [Examples](#Examples)
 
 
 <h2 id="getting-started">起步</h2>
@@ -72,7 +73,7 @@ const rootReducer = combineReducers({
   // ...your other reducers here
   // you have to pass formReducer under 'form' key,
   // for custom keys look up the docs for 'getFormState'
-  form: formReducer 
+  form: formReducer
 })
 
 const store = createStore(rootReducer)
@@ -160,7 +161,7 @@ const ContactForm = props => {
 
 ContactForm = reduxForm({
   // a unique name for the form
-  form: 'contact' 
+  form: 'contact'
 })(ContactForm)
 
 export default ContactForm;
@@ -329,7 +330,7 @@ import MyCustomInput from './MyCustomInput'
 const renderField = (field) => (
     <div className="input-row">
       <input {...field.input} type="text"/>
-      {field.meta.touched && field.meta.error && 
+      {field.meta.touched && field.meta.error &&
        <span className="error">{field.meta.error}</span>}
     </div>
   )
@@ -411,7 +412,7 @@ import { Form } from 'redux-form';  // ES6
 
 `FormSection` 可以很简单地将现有的表单组件分割成更小的组件，用以在复杂的表单中进行复用。它是通过明确规定好的 `Field`、`Fields`和`FieldArray`字组件 `name`的前缀来完成此功能的。
 
-##### 使用方法 
+##### 使用方法
 
 这个例子所描述的业务是一个购买人与收件人视角的订单用户信息表单结构。购买人与收件人拥有相同的字段结构，因此把这个部分拆分成一个名为 `Party` 的组件是有意义的。假设现在 `Party` 包含 `givenName` `middleName` `surname` `address` 这几个字段，然后将 `address` 部分再度拆分成可重用的组件 `Address`。代码如下:
 
@@ -422,7 +423,7 @@ class Address extends Component {
         return <div>
             <Field name="streetName" component="input" type="text"/>
             <Field name="number" component="input" type="text"/>
-            <Field name="zipCode" component="input" type="text"/> 
+            <Field name="zipCode" component="input" type="text"/>
         </div>
     }
 }
@@ -461,24 +462,24 @@ class OrderForm extends Component {
 
 ```json
 {
-    buyer: {
-        givenName: "xxx",
-        middleName: "yyy",
-        surname: "zzz",
-        address: {
-            streetName: undefined,
-            number: "123",
-            zipCode: "9090"
+    "buyer": {
+        "givenName": "xxx",
+        "middleName": "yyy",
+        "surname": "zzz",
+        "address": {
+            "streetName": undefined,
+            "number": "123",
+            "zipCode": "9090"
         }
     },
-    recipient: {
-        givenName: "aaa",
-        middleName: "bbb",
-        surname: "ccc",
-        address: {
-            streetName: "foo",
-            number: "4123",
-            zipCode: "78320"
+    "recipient": {
+        "givenName": "aaa",
+        "middleName": "bbb",
+        "surname": "ccc",
+        "address": {
+            "streetName": "foo",
+            "number": "4123",
+            "zipCode": "78320"
         }
     }
 }
@@ -496,7 +497,7 @@ class Address extends FormSection {
         return <div>
             <Field name="streetName" component="input" type="text"/>
             <Field name="number" component="input" type="text"/>
-            <Field name="zipCode" component="input" type="text"/> 
+            <Field name="zipCode" component="input" type="text"/>
         </div>
     }
 }
@@ -520,7 +521,7 @@ var formValues = require('redux-form').formValues;  // ES5
 import { formValues } from 'redux-form';  // ES6
 ```
 
-##### 使用方法 
+##### 使用方法
 
 ```javascript
 const ItemList = formValues('withVat')(MyItemizedList)
@@ -697,7 +698,7 @@ import { SubmissionError } from 'redux-form';  // ES6
 }/>
 ```
 
-<h4 id="Action Creators"> API: Action Creators </h4>
+<h4 id="Action-Creators"> API: Action Creators </h4>
 
 `redux-form` 对外开放了所有的内部 `action creators`，允许你按找你的意愿来完成对分发 `action ` 的控制。进而，官方推荐您在完成您大部分需求的时候，对于那些表单里指定需求的字段的 `action`来说，当作这些 `action` 已经绑定到 `dispatch`一样，直接将这些 `action` 通过 `props` 传递。
 
@@ -749,3 +750,4 @@ MyComponent = connect(
 )(MyComponent)
 ```
 
+<h2 id="Examples">Examples</h2>

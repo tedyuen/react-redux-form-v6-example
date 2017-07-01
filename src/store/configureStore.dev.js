@@ -26,7 +26,7 @@ const logger = createLogger({
 //   [require('redux-immutable-state-invariant').default(), thunk,historyMiddleware,logger] :
 //   [thunk,historyMiddleware,logger];
 const middlewares = [
-  require('redux-immutable-state-invariant').default(),
+  // require('redux-immutable-state-invariant').default(),
   thunk,
   historyMiddleware,
   logger
@@ -36,7 +36,7 @@ const win = window;
 win.Perf = Perf
 const storeEnhancers = compose(
   applyMiddleware(...middlewares),
-  (win && win.devToolsExtension) ? win.devToolsExtension() : (f) => f,
+  // (win && win.devToolsExtension) ? win.devToolsExtension() : (f) => f,
 );
 
 const configureStore = preloadedState => {

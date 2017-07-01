@@ -2,16 +2,26 @@
   "name": "react-redux-form-v6-example",
   "version": "0.1.0",
   "author": "Ted Yuen",
-  "keywords": ["react","redux","redux-form"],
+  "keywords": [
+    "react",
+    "redux",
+    "redux-form"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/tedyuen/react-redux-form-v6-example.git"
   },
-  "license":"MIT",
-  "contributors":[{"name":"tedyuen","email":"tedyuen.goo@gmail.com"}],
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "tedyuen",
+      "email": "tedyuen.goo@gmail.com"
+    }
+  ],
   "private": true,
   "dependencies": {
     "classnames": "^2.2.5",
+    "dropify": "^0.2.2",
     "humps": "^2.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.2.1",
@@ -22,12 +32,14 @@
     "react": "^15.6.1",
     "react-addons-perf": "^15.4.2",
     "react-dom": "^15.6.1",
+    "react-dropzone": "^3.13.3",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0",
     "redux-form": "^6.8.0",
+    "redux-form-website-template": "0.0.45",
     "redux-immutable-state-invariant": "^2.0.0",
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.5.3",
