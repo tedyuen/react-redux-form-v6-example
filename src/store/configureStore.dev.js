@@ -36,7 +36,7 @@ const win = window;
 win.Perf = Perf
 const storeEnhancers = compose(
   applyMiddleware(...middlewares),
-  // (win && win.devToolsExtension) ? win.devToolsExtension() : (f) => f,
+  (win && win.devToolsExtension) ? win.devToolsExtension() : (f) => f,
 );
 
 const configureStore = preloadedState => {

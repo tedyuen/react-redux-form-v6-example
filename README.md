@@ -28,6 +28,7 @@
    * [Selectors](#Selectors)
 * [Examples](#Examples)
    * [Simple Form](#Simple)
+   * [Sync Validation](#snycValidation)
 
 
 <h2 id="getting-started">起步</h2>
@@ -758,7 +759,7 @@ MyComponent = connect(
 
 这个例子把表单所有基本的元素都列了出来，和官方Demo有所区别的是，增加了2个 `type` 为 `file` 的 `Field` (直接在 `Field` 中使用 `file` 的类型会有点问题)，一个是使用了jQuery的 [dropify](https://github.com/JeremyFagis/dropify) 编写的上传单个文件的组件 `MyDropify`，一个是使用了 `dropzone` 编写的上传多个文件的组件 `MyDropzone` (在这里使用了 [react-dropzone](https://github.com/okonet/react-dropzone) 和 `redux-form` 的组合)。官方的例子不单独介绍了，主要贴一下两个自定义 `Field`。
 
-**注：由于reducer设计之初是纯函数，而提交文件的表单最后取得的值是一个 `file` 对象，当您使用了 [redux-immutable-state-invariant](https://github.com/leoasis/redux-immutable-state-invariant) 之类的检测工具，对其中诸如 `lastModifiedDate` 的值会报错，[具体请看](http://redux.js.org/docs/Troubleshooting.html#never-mutate-reducer-arguments)。在此，我们暂时先不考虑immutable的问题。**
+***注：由于reducer设计之初是纯函数，而提交文件的表单最后取得的值是一个 `file` 对象，当您使用了 [redux-immutable-state-invariant](https://github.com/leoasis/redux-immutable-state-invariant) 之类的检测工具，对其中诸如 `lastModifiedDate` 的值会报错，[具体请看](http://redux.js.org/docs/Troubleshooting.html#never-mutate-reducer-arguments)。在此，我们暂时先不考虑immutable的问题。***
 
 ##### Simple路径
 
@@ -866,3 +867,98 @@ export default MyDropzone;
 ```
 
 `react-dropzone` 和jQuery版本的有所区别，使用过 `dropzone` 的应该都知道选择文件可以渲染到框体内，react版本的 `dropzone` 原声不带这个功能，但它提供了详尽的方法可以自己实现很多功能，比如选择完文件可以渲染到组件中，有时间我再完善此功能。
+
+<h3 id="snycValidation"> Sync Validation </h3>
+
+同步的表单验证，包括了错误和警告型配置。官方Demo中只演示了输入框的验证，而这里准备了包括 `radio` `select` `textarea` 的验证方式(`checkbox` 我会在单独的一章讲解)，调用方法可以参见本文的源代码。
+
+##### Sync Validation路径
+
+`src/components/demo/syncValidation/`
+
+##### radioField
+
+`src/components/demo/syncValidation/validation/radioField.js`
+
+```jsx
+import React from 'react';
+
+const inputField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error, warning }
+}) => (
+  <div className={touched && error ? 'has-error form-group':'form-group'}>
+    <div className="input-group">
+      <span className="input-group-addon">{label}</span>
+      <input {...input} placeholder={label} type={type} className="form-control"/>
+    </div>
+    {touched &&
+      ((error && <div className="help-block with-errors">{error}</div>) ||
+        (warning && <div className="help-block with-errors">{warning}</div>))}
+  </div>
+)
+
+export default inputField;
+```
+
+##### selectField
+
+`src/components/demo/syncValidation/validation/selectField.js`
+
+```jsx
+import React from 'react';
+const selectField = ({
+  input,
+  label,
+  selects,
+  meta: { touched, error, warning }
+}) => (
+  <div className={touched && error ? 'has-error form-group':'form-group'}>
+    <div className="input-group">
+      <span className="input-group-addon">{label}</span>
+      <select {...input} className="form-control">
+        {
+          selects.map((item, i) => (
+            <option key={i} value={item.value}>{item.text}</option>
+          ))
+        }
+      </select>
+    </div>
+    {touched &&
+      ((error && <div className="help-block with-errors">{error}</div>) ||
+        (warning && <div className="help-block with-errors">{warning}</div>))}
+  </div>
+)
+
+export default selectField;
+```
+
+##### textareaField
+
+`src/components/demo/syncValidation/validation/textareaField.js`
+
+```jsx
+import React from 'react';
+
+const textareaField = ({
+  input,
+  label,
+  type,
+  cols,
+  rows,
+  meta: { touched, error, warning }
+}) => (
+  <div className={touched && error ? 'has-error form-group':'form-group'}>
+    <label>{label}</label>
+    <textarea {...input} cols={cols} rows={rows} className="form-control"></textarea>
+    {touched &&
+      ((error && <div className="help-block with-errors">{error}</div>) ||
+        (warning && <div className="help-block with-errors">{warning}</div>))}
+  </div>
+)
+
+export default textareaField;
+```
+

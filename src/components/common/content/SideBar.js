@@ -19,8 +19,18 @@ class SideBar extends Component {
               <li>
                 <Link to="/project/simple" className="waves-effect active">
                   <i className="linea-icon linea-basic fa-fw" data-icon="Z"></i>
-                  <span className="hide-menu">Simple </span>
+                  <span className="hide-menu">Simple Form</span>
                 </Link>
+              </li>
+
+              <li>
+                <a className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon="S"></i>
+                  <span className="hide-menu">Validation<span className="fa arrow"></span> </span>
+                </a>
+                <ul className="nav nav-second-level">
+                  <li> <Link to="/project/syncValidation">Sync Validation</Link> </li>
+                </ul>
               </li>
             </ul>
           </div>
