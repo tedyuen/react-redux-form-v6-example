@@ -31,6 +31,7 @@
    * [Simple Form](#Simple)
    * [Sync Validation](#snycValidation)
    * [Field-Level Validation](#FieldLevelValidation)
+   * [Submit Validation](#SubmitValidation)
 
 
 <h2 id="getting-started">起步</h2>
@@ -757,7 +758,7 @@ MyComponent = connect(
 <h2 id="Examples">Examples</h2>
 
 
-<h3 id="Simple"> Simple Form </h3>
+<h3 id="Simple"> Demo: Simple Form </h3>
 
 这个例子把表单所有基本的元素都列了出来，和官方Demo有所区别的是，增加了2个 `type` 为 `file` 的 `Field` (直接在 `Field` 中使用 `file` 的类型会有点问题)，一个是使用了jQuery的 [dropify](https://github.com/JeremyFagis/dropify) 编写的上传单个文件的组件 `MyDropify`，一个是使用了 `dropzone` 编写的上传多个文件的组件 `MyDropzone` (在这里使用了 [react-dropzone](https://github.com/okonet/react-dropzone) 和 `redux-form` 的组合)。官方的例子不单独介绍了，主要贴一下两个自定义 `Field`。
 
@@ -870,7 +871,7 @@ export default MyDropzone;
 
 `react-dropzone` 和jQuery版本的有所区别，使用过 `dropzone` 的应该都知道选择文件可以渲染到框体内，react版本的 `dropzone` 原声不带这个功能，但它提供了详尽的方法可以自己实现很多功能，比如选择完文件可以渲染到组件中，有时间我再完善此功能。
 
-<h3 id="snycValidation"> Sync Validation </h3>
+<h3 id="snycValidation"> Demo: Sync Validation </h3>
 
 同步的表单验证，包括了错误和警告型配置。官方Demo中只演示了输入框的验证，而这里准备了包括 `radio` `select` `textarea` 的验证方式(`checkbox` 我会在单独的一章讲解)，调用方法可以参见本文的源代码。
 
@@ -964,6 +965,17 @@ const textareaField = ({
 export default textareaField;
 ```
 
-<h3 id="FieldLevelValidation"> Field-Level Validation </h3>
+<h3 id="FieldLevelValidation"> Demo: Field-Level Validation </h3>
 
 除了提供一个验证方法一起验证表单里的值这种方法之外，还可以对每一个 `<Field/>` 或 `<FieldArray/>` 分别做验证。官方给的Demo已经足够说明问题了，在这里只针对上面的 `Sync Validation` 作简单的改写。具体请看代码。
+
+<h3 id="SubmitValidation"> Demo: Submit Validation </h3>
+
+一种服务器表单验证较好的方法是在调用 `onSubnit` 之后返回一个 `rejected` 的 `promise` 对象。当您的表单被提交时，有2种方法提供给 `redux-form` 这个函数。
+
+1. 把他当作一个 `onSubmit` 的 `prop` 传递给您的装饰组件。那样的话，你可以在您的装饰组件中使用 `onSubmit={this.props.handleSubmit}` 确保当用户点击提交按钮的时候触发这个函数。
+2. 把他当作一个参数传递给您装饰组件内的 `this.props.handleSubmit` 函数。这种情况下，你需要使用 `onClick={this.props.handleSubmit(mySubmit)}` 来确保当用户点击提交按钮的时候触发这个函数。
+
+这个错误信息的显示方式和同步验证(Synchronous Validation)后的错误信息一样，但他是通过 `onSubmit` 函数返回一个封装过的 `SubmissionError` 对象。这个验证错误就像HTTP的400或500错误一样，和I/O错误是有区别的，并且他还会是这个提交的 `promise` 对象的状态置为 `rejected`。
+
+DEMO中没什么花头，和官方一样，就是基于 `SyncValidation` 把表单验证的逻辑放在了提交后的逻辑中，并抛出了一个 `SubmissionError`。
