@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import SubmitValidationForm from './SubmitValidationForm';
+import AsyncValidationForm from './AsyncValidationForm';
 import {Values} from 'redux-form-website-template'
 
-class SubmitValidation extends Component {
+class AsyncValidation extends Component {
   onSubmit = (value) => {
-    console.log("Submit onSubmit: "+JSON.stringify(value));
+    console.log("Async onSubmit: "+JSON.stringify(value));
   }
   render(){
     return (
@@ -13,13 +13,13 @@ class SubmitValidation extends Component {
             <div className="row">
               <div className="col-md-6 col-lg-6 col-sm-12">
                 <div className="white-box">
-                  <h3>Submit Validation Form</h3>
-                  <SubmitValidationForm onSubmit={this.onSubmit}></SubmitValidationForm>
+                  <h3>Async Validation Form</h3>
+                  <AsyncValidationForm onSubmit={this.onSubmit}></AsyncValidationForm>
                 </div>
               </div>
               <div className="col-md-6 col-lg-6 col-sm-12">
                 <div className="white-box">
-                  <Values form="submitValidationForm"/>
+                  <Values form="asyncValidationForm"/>
                 </div>
               </div>
             </div>
@@ -29,4 +29,4 @@ class SubmitValidation extends Component {
   }
 }
 
-export default SubmitValidation;
+export default AsyncValidation;

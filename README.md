@@ -32,6 +32,7 @@
    * [Sync Validation](#snycValidation)
    * [Field-Level Validation](#FieldLevelValidation)
    * [Submit Validation](#SubmitValidation)
+   * [Async Validation](#AsyncValidation)
 
 
 <h2 id="getting-started">起步</h2>
@@ -979,3 +980,18 @@ export default textareaField;
 这个错误信息的显示方式和同步验证(Synchronous Validation)后的错误信息一样，但他是通过 `onSubmit` 函数返回一个封装过的 `SubmissionError` 对象。这个验证错误就像HTTP的400或500错误一样，和I/O错误是有区别的，并且他还会是这个提交的 `promise` 对象的状态置为 `rejected`。
 
 DEMO中没什么花头，和官方一样，就是基于 `SyncValidation` 把表单验证的逻辑放在了提交后的逻辑中，并抛出了一个 `SubmissionError`。
+
+<h3 id="AsyncValidation"> Demo: Async Validation </h3>
+
+服务器表单验证的方式比较推荐使用[Submit Validation](#SubmitValidation)，但是可能存在当您填写表单的时候，同时需要服务器端来验证。有一个经典的例子是当一个用户选取一个值，比如用户名，它必须是您系统中唯一的一个值。
+
+为了写一个异步的表单验证，需要给 `redux-form` 提供一个异步验证的函数(asyncValidation)用来提供一个可以从表单获取数据的一个对象，然后 `Redux` 分发这个函数，返回一个状态为拥有一个错误对象的 `rejects`或状态为 `reslove` 的 `promise` 对象。
+
+您需要同时指定某几个字段，通过 `asyncBlurFields` 的属性配置，来标记是否需要在他们失去焦点的时候触发这个异步验证。
+
+##### 重要
+
+1. 异步验证会在 `onSubmit` 之前被调用，所以如果你关心的是 `onSubmit` 验证，你需要使用 [Submit Validation](#SubmitValidation)
+2. 当一个字段的同步验证错误时，那它的失去焦点的时候将不会触发异步验证。
+
+Demo中的自定义 `<Field/>` 的 `meta` 中有一个 `asyncValidating`，来标识异步验证的 `promise` 对象的 `Pending` 状态。

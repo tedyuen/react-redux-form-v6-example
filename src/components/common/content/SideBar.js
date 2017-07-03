@@ -32,6 +32,7 @@ class SideBar extends Component {
                   <li> <Link to="/project/syncValidation">Sync Validation</Link> </li>
                   <li> <Link to="/project/fieldLevelValidation">Field-Level Validation</Link> </li>
                   <li> <Link to="/project/submitValidation">Submit Validation</Link> </li>
+                  <li> <Link to="/project/asyncValidation">Async Validation</Link> </li>
                 </ul>
               </li>
             </ul>
