@@ -4,7 +4,8 @@
 
 
 * 项目地址: [https://github.com/tedyuen/react-redux-form-v6-example](https://github.com/tedyuen/react-redux-form-v6-example)
-* 演示方法: `npm install && npm run start`
+* [在线演示地址](https://tedyuen.github.io/redux-form-demo)
+* 本地演示方法: `npm install && npm run start`
 * 如对翻译有困惑，请移步[官方文档](http://redux-form.com/6.8.0/)。转载请注明出处[Ted Yuen](https://github.com/tedyuen/react-redux-form-v6-example/blob/master/README.md)
 
 ## 目录
@@ -29,6 +30,7 @@
 * [Examples](#Examples)
    * [Simple Form](#Simple)
    * [Sync Validation](#snycValidation)
+   * [Field-Level Validation](#FieldLevelValidation)
 
 
 <h2 id="getting-started">起步</h2>
@@ -791,7 +793,7 @@ class MyDropify extends Component {
       <div>
         <input type="file"
                onChange={onAttachmentChange}
-               className="dropify" 
+               className="dropify"
                data-allowed-file-extensions={dataAllowedFileExtensions} />
       </div>
     )
@@ -878,7 +880,7 @@ export default MyDropzone;
 
 ##### radioField
 
-`src/components/demo/syncValidation/validation/radioField.js`
+`src/components/utils/validation/radioField.js`
 
 ```jsx
 import React from 'react';
@@ -905,7 +907,7 @@ export default inputField;
 
 ##### selectField
 
-`src/components/demo/syncValidation/validation/selectField.js`
+`src/components/utils/validation/selectField.js`
 
 ```jsx
 import React from 'react';
@@ -937,7 +939,7 @@ export default selectField;
 
 ##### textareaField
 
-`src/components/demo/syncValidation/validation/textareaField.js`
+`src/components/utils/validation/textareaField.js`
 
 ```jsx
 import React from 'react';
@@ -962,3 +964,6 @@ const textareaField = ({
 export default textareaField;
 ```
 
+<h3 id="FieldLevelValidation"> Field-Level Validation </h3>
+
+除了提供一个验证方法一起验证表单里的值这种方法之外，还可以对每一个 `<Field/>` 或 `<FieldArray/>` 分别做验证。官方给的Demo已经足够说明问题了，在这里只针对上面的 `Sync Validation` 作简单的改写。具体请看代码。

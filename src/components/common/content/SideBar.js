@@ -30,6 +30,7 @@ class SideBar extends Component {
                 </a>
                 <ul className="nav nav-second-level">
                   <li> <Link to="/project/syncValidation">Sync Validation</Link> </li>
+                  <li> <Link to="/project/fieldLevelValidation">Field-Level Validation</Link> </li>
                 </ul>
               </li>
             </ul>

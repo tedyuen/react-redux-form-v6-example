@@ -1,6 +1,7 @@
 import ProjectContent from '../components/common/content/projectContent/ProjectContent';
 import {Simple} from '../components/demo/simple';
 import {SyncValidation} from '../components/demo/syncValidation';
+import {FieldLevelValidation} from '../components/demo/fieldLevelValidation';
 const PROJECT = '/project'
 const routes = [
   {
@@ -14,7 +15,12 @@ const routes = [
       {
         path: PROJECT+'/syncValidation',
         component: SyncValidation
-      }
+      },
+      {
+        path: PROJECT+'/fieldLevelValidation',
+        component: FieldLevelValidation
+      },
+
 
     ]
   }

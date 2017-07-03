@@ -4,11 +4,11 @@ import inputField from '../../utils/validation/inputField';
 import radioField from '../../utils/validation/radioField';
 import textareaField from '../../utils/validation/textareaField';
 import selectField from '../../utils/validation/selectField';
-import { validate } from './validDesc';
-import { warn } from './warnDesc';
+import { required,maxLength15,minLength2,number,minValue18,email,nullValue1 } from './validDesc';
+import { tooOld } from './warnDesc';
 
 
-const SyncValidationForm = props => {
+const FieldLevelValidationForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   const radios = [
     {
@@ -40,12 +40,12 @@ const SyncValidationForm = props => {
   ]
   return(
     <form onSubmit={handleSubmit} noValidate>
-      <Field component={inputField} label="username" name="username" type="text"></Field>
-      <Field component={inputField} label="Age" name="age" type="number"></Field>
-      <Field component={inputField} label="Email" name="email" type="email"></Field>
-      <Field component={radioField} radios={radios} label="Sex" name="sex" type="radio"/>
-      <Field component={selectField} selects={selects} label="Favorite Color" name="favoriteColor"/>
-      <Field component={textareaField} label="Notes" name="notes" rows="3"/>
+      <Field validate={[required,maxLength15,minLength2]} component={inputField} label="username" name="username" type="text"></Field>
+      <Field validate={[required,number,minValue18]} warn={tooOld} component={inputField} label="Age" name="age" type="number"></Field>
+      <Field validate={[required,email]} component={inputField} label="Email" name="email" type="email"></Field>
+      <Field validate={required} component={radioField} radios={radios} label="Sex" name="sex" type="radio"/>
+      <Field validate={[required,nullValue1]} component={selectField} selects={selects} label="Favorite Color" name="favoriteColor"/>
+      <Field validate={required} component={textareaField} label="Notes" name="notes" rows="3"/>
       <div className="m-t-15 form-group">
         <button type="submit" className="btn btn-success waves-effect waves-light m-r-10" disabled={pristine || submitting}>Submit</button>
         <button type="button" className="btn btn-danger waves-effect waves-light" disabled={pristine || submitting} onClick={reset}>
@@ -57,7 +57,5 @@ const SyncValidationForm = props => {
 }
 
 export default reduxForm({
-  form: 'syncValidation', // a unique identifier for this form
-  validate,// <--- validation function given to redux-form
-  warn,// <--- warning function given to redux-form
-})(SyncValidationForm)
+  form: 'fieldLevelValidation', // a unique identifier for this form
+})(FieldLevelValidationForm)
