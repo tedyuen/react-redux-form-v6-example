@@ -37,6 +37,7 @@
    * [Selecting Form Values](#selectingFormValues)
    * [Field Array](#demofieldArray)
    * [Remote Submit](#remoteSubmit)
+   * [Field Normalizing](#normalizing)
 
 
 <h2 id="getting-started">起步</h2>
@@ -1093,4 +1094,47 @@ const RemoteSubmitButton = ({ dispatch }) => (
 )
 //   remoteSubmit 为表单的名字
 export default connect()(RemoteSubmitButton)
+```
+
+<h3 id="normalizing"> Demo: Field Normalizing </h3>
+
+当您需要在用户输入和 `store` 中的数据之间施加某些控制，你可以使用 `normalizer`。`normalizer` 就是一个每当值改变是，可以在保存到 `store` 之前进行某些转换的一个函数。
+
+一个常用的例子：你需要一个某些经过格式化的值，比如电话号码或信用卡号。
+
+`Normalizers` 传递了4个参数:
+
+* `value` - 你设置了 `normalizer` 字段的值
+* `previousValue` - 这个值最近一次变化之前的一个值
+* `allValues` - 表单中，所有字段当前的值
+* `previousAllValues` - 表单中，所有字段在最近一次变化前的值
+
+这些可以使你基于表单中另外一个字段而限制某个特定的字段。比如例子中的字段最小最大值：这里你不能设置 `min` 中的值比 `max` 中的值大，不能设置 `max` 中的值比 `min` 的值更小(下面有代码)
+
+```javascript
+const upper = value => value && value.toUpperCase()
+const lower = value => value && value.toLowerCase()
+const lessThan = otherField => (value, previousValue, allValues) =>
+  parseFloat(value) < parseFloat(allValues[otherField]) ? value : previousValue
+const greaterThan = otherField => (value, previousValue, allValues) =>
+  parseFloat(value) > parseFloat(allValues[otherField]) ? value : previousValue
+```
+
+下面是对电话号码处理的逻辑
+
+```javascript
+const normalizePhone = value => {
+  if (!value) {
+    return value
+  }
+
+  const onlyNums = value.replace(/[^\d]/g, '')
+  if (onlyNums.length <= 3) {
+    return onlyNums
+  }
+  if (onlyNums.length <= 7) {
+    return `${onlyNums.slice(0, 3)}-${onlyNums.slice(3)}`
+  }
+  return `${onlyNums.slice(0, 3)}-${onlyNums.slice(3, 6)}-${onlyNums.slice(6, 10)}`
+}
 ```

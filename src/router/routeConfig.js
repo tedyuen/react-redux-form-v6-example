@@ -8,6 +8,7 @@ import {InitializeFromState} from '../components/demo/initializeFromState';
 import {SelectingFormValues} from '../components/demo/selectingFormValues';
 import {FieldArray} from '../components/demo/fieldArrays';
 import {RemoteSubmit} from '../components/demo/remoteSubmit';
+import {Normalizing} from '../components/demo/normalizing';
 
 const PROJECT = '/project'
 const routes = [
@@ -50,6 +51,10 @@ const routes = [
       {
         path: PROJECT+'/remoteSubmit',
         component: RemoteSubmit
+      },
+      {
+        path: PROJECT+'/normalizing',
+        component:Normalizing
       }
     ]
   }

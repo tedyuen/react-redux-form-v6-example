@@ -59,6 +59,13 @@ class SideBar extends Component {
                   <span className="hide-menu">Remote Submity</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/project/normalizing" className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon=">"></i>
+                  <span className="hide-menu">Normalizing</span>
+                </Link>
+              </li>
+
             </ul>
           </div>
         </div>
