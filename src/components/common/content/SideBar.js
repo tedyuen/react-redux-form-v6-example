@@ -41,6 +41,12 @@ class SideBar extends Component {
                   <span className="hide-menu">Initialize From State</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/project/selectingFormValues" className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon="&#xe028;"></i>
+                  <span className="hide-menu">Selecting Form Values</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

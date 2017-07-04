@@ -1,12 +1,12 @@
 # React-Redux技术栈——之redux-form详解
 
-> React中没有类似Angular那样的双向数据绑定，在做一些表达复杂的后台类页面时，监听、赋值、传递、校验时编码相对复杂，满屏的样板代码伤痛欲绝，故引入可以解决这些问题的 `redux-form` (v6) 模块。本文在能够完成复杂表单类页面的代码例子上，尽量列举更多的可能或者可以开拓思路边边角角。
+> React中没有类似Angular那样的双向数据绑定，在做一些表达复杂的后台类页面时，监听、赋值、传递、校验时编码相对复杂，满屏的样板代码伤痛欲绝，故引入可以解决这些问题的 `redux-form` (v6) 模块。本文大致翻译了官方文档一些比较重要的地方，结合官方Demo加入了一些特性。
 
 
 * 项目地址: [https://github.com/tedyuen/react-redux-form-v6-example](https://github.com/tedyuen/react-redux-form-v6-example)
 * [在线演示地址](https://tedyuen.github.io/redux-form-demo)
 * 本地演示方法: `npm install && npm run start`
-* 如对翻译有困惑，请移步[官方文档](http://redux-form.com/6.8.0/)。转载请注明出处[Ted Yuen](https://github.com/tedyuen/react-redux-form-v6-example/blob/master/README.md)
+* 如对翻译有困惑，请移步[官方文档](http://redux-form.com/6.8.0/)，对Demo的理解有异议欢迎留言或私信。转载请注明出处[Ted Yuen](https://github.com/tedyuen/react-redux-form-v6-example/blob/master/README.md)
 
 ## 目录
 
@@ -34,6 +34,7 @@
    * [Submit Validation](#SubmitValidation)
    * [Async Validation](#AsyncValidation)
    * [Initialize From State](#initializeFromState)
+   * [Selecting Form Values](#selectingFormValues)
 
 
 <h2 id="getting-started">起步</h2>
@@ -1016,4 +1017,36 @@ InitializeFromStateForm = reduxForm({
   enableReinitialize:true,
   keepDirtyOnReinitialize:true,// 这个值表示重新初始化表单后，不替换已更改的值，可以用clear来测试
 })(InitializeFromStateForm)
+```
+
+<h3 id="selectingFormValues"> Demo: Selecting Form Values </h3>
+
+有时候您希望访问表单组件中某些字段的值，你需要在 `store` 中直接 `connect()` 表单的值。在一般的使用情况下，`redux-form` 通过 `formValueSelector` 提供了一个方便的选择器。
+
+**警告: 需要节制使用这个机制，因为这样的话，表单里的某一个值一旦发生改变，就会重新渲染您的组件。**
+
+代码片段:
+
+```javascript
+// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
+SelectingFormValuesForm = reduxForm({
+  form: 'selectingFormValues',// a unique identifier for this form
+})(SelectingFormValuesForm)
+
+// Decorate with connect to read form values
+const selector = formValueSelector('selectingFormValues') // <-- same as form name
+SelectingFormValuesForm = connect(state => {
+  // can select values individually
+  const hasEmailValue = selector(state, 'hasEmail')
+  const favoriteColorValue = selector(state, 'favoriteColor')
+  // or together as a group
+  const { firstName, lastName } = selector(state, 'firstName', 'lastName')
+  return {
+    hasEmailValue,
+    favoriteColorValue,
+    fullName: `${firstName || ''} ${lastName || ''}`
+  }
+})(SelectingFormValuesForm)
+
+export default SelectingFormValuesForm
 ```

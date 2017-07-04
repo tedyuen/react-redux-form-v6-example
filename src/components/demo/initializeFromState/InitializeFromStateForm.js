@@ -28,12 +28,6 @@ const colors = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet']
 
 class InitializeFromStateForm extends Component{
 
-  componentWillReceiveProps(nextProps){
-    if(!this.props.initialValues){
-
-    }
-  }
-
   render(){
     const { handleSubmit, load, pristine, reset, submitting, initialValues } = this.props
     return(
@@ -126,6 +120,10 @@ class InitializeFromStateForm extends Component{
           <button type="button" onClick={() => load(data1)} className="btn btn-primary waves-effect waves-light m-r-10">Load Account 1</button>
           <button type="button" onClick={() => load(data2)} className="btn btn-primary waves-effect waves-light m-r-10">Load Account 2</button>
         </div>
+        <h3>initialValues</h3>
+        <pre>
+          {JSON.stringify(initialValues)}
+        </pre>
       </form>
     )
   }

@@ -5,6 +5,7 @@ import {FieldLevelValidation} from '../components/demo/fieldLevelValidation';
 import {SubmitValidation} from '../components/demo/submitValidation';
 import {AsyncValidation} from '../components/demo/asyncValidation';
 import {InitializeFromState} from '../components/demo/initializeFromState';
+import {SelectingFormValues} from '../components/demo/selectingFormValues';
 
 const PROJECT = '/project'
 const routes = [
@@ -35,8 +36,11 @@ const routes = [
       {
         path: PROJECT+'/initializeFromState',
         component: InitializeFromState
-      }
-
+      },
+      {
+        path: PROJECT+'/selectingFormValues',
+        component: SelectingFormValues
+      },
 
 
     ]
