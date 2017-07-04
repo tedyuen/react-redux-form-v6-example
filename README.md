@@ -36,6 +36,7 @@
    * [Initialize From State](#initializeFromState)
    * [Selecting Form Values](#selectingFormValues)
    * [Field Array](#demofieldArray)
+   * [Remote Submit](#remoteSubmit)
 
 
 <h2 id="getting-started">起步</h2>
@@ -1059,3 +1060,37 @@ export default SelectingFormValuesForm
 * 一个 `action` 的原始构造
 * 通过您表单的 `this.props.array` 对象绑定的 `action`
 * 同时绑定表单和通过 `FieldArray` 组件获得的对象上的数组的 `action`
+
+<h3 id="remoteSubmit"> Demo: Remote Submit </h3>
+
+这个例子演示了一个表单如何从一个无关的组件或中间件中发送的一个 `SUBMIT` 的action来执行提交逻辑。
+
+这个例子里你所看到的的提交按钮，不是直接与表单组件直接链接的，它的作用只是通过 `Redux` 发送的一个提交的 `action`。
+
+要注意它的工作方式，这个提交函数必须通过 `reduxForm()` 配置参数的传递或通过 `prop` 提供给表单组件。以下是发送这个action的方式:
+
+```jsx
+import React from 'react'
+import { connect } from 'react-redux'
+import { submit } from 'redux-form'
+
+const style = {
+  padding: '10px 20px',
+  width: 140,
+  display: 'block',
+  margin: '20px auto',
+  fontSize: '16px'
+}
+
+const RemoteSubmitButton = ({ dispatch }) => (
+  <button
+    type="button"
+    style={style}
+    onClick={() => dispatch(submit('remoteSubmit'))}
+  >
+    Submit
+  </button>
+)
+//   remoteSubmit 为表单的名字
+export default connect()(RemoteSubmitButton)
+```

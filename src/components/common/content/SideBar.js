@@ -53,7 +53,12 @@ class SideBar extends Component {
                   <span className="hide-menu">Field Array</span>
                 </Link>
               </li>
-
+              <li>
+                <Link to="/project/remoteSubmit" className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon="&#xe017;"></i>
+                  <span className="hide-menu">Remote Submity</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

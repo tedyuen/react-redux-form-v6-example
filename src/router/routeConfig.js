@@ -7,6 +7,7 @@ import {AsyncValidation} from '../components/demo/asyncValidation';
 import {InitializeFromState} from '../components/demo/initializeFromState';
 import {SelectingFormValues} from '../components/demo/selectingFormValues';
 import {FieldArray} from '../components/demo/fieldArrays';
+import {RemoteSubmit} from '../components/demo/remoteSubmit';
 
 const PROJECT = '/project'
 const routes = [
@@ -46,6 +47,10 @@ const routes = [
         path: PROJECT+'/fieldArray',
         component: FieldArray
       },
+      {
+        path: PROJECT+'/remoteSubmit',
+        component: RemoteSubmit
+      }
     ]
   }
 ]
