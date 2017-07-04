@@ -6,6 +6,7 @@ import {SubmitValidation} from '../components/demo/submitValidation';
 import {AsyncValidation} from '../components/demo/asyncValidation';
 import {InitializeFromState} from '../components/demo/initializeFromState';
 import {SelectingFormValues} from '../components/demo/selectingFormValues';
+import {FieldArray} from '../components/demo/fieldArrays';
 
 const PROJECT = '/project'
 const routes = [
@@ -41,8 +42,10 @@ const routes = [
         path: PROJECT+'/selectingFormValues',
         component: SelectingFormValues
       },
-
-
+      {
+        path: PROJECT+'/fieldArray',
+        component: FieldArray
+      },
     ]
   }
 ]

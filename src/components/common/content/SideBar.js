@@ -47,6 +47,13 @@ class SideBar extends Component {
                   <span className="hide-menu">Selecting Form Values</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/project/fieldArray" className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon="&#xe005;"></i>
+                  <span className="hide-menu">Field Array</span>
+                </Link>
+              </li>
+
             </ul>
           </div>
         </div>

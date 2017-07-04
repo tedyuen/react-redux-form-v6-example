@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import AsyncValidationForm from './AsyncValidationForm';
+import FieldArraysForm from './FieldArraysForm';
 import {Values} from 'redux-form-website-template'
 
-class AsyncValidation extends Component {
+class FieldArray extends Component {
   onSubmit = (value) => {
-    console.log("Async onSubmit: "+JSON.stringify(value));
+    console.log("FieldArraysForm onSubmit: "+JSON.stringify(value));
   }
   render(){
     return (
@@ -13,13 +13,13 @@ class AsyncValidation extends Component {
           <div className="row">
             <div className="col-md-6 col-lg-6 col-sm-12">
               <div className="white-box">
-                <h3>Async Validation Form</h3>
-                <AsyncValidationForm onSubmit={this.onSubmit}></AsyncValidationForm>
+                <h3>Field Arrays Form</h3>
+                <FieldArraysForm onSubmit={this.onSubmit}></FieldArraysForm>
               </div>
             </div>
             <div className="col-md-6 col-lg-6 col-sm-12">
               <div className="white-box">
-                <Values form="asyncValidationForm"/>
+                <Values form="fieldArrays"/>
               </div>
             </div>
           </div>
@@ -29,4 +29,4 @@ class AsyncValidation extends Component {
   }
 }
 
-export default AsyncValidation;
+export default FieldArray;

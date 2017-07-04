@@ -1,6 +1,6 @@
 # React-Redux技术栈——之redux-form详解
 
-> React中没有类似Angular那样的双向数据绑定，在做一些表达复杂的后台类页面时，监听、赋值、传递、校验时编码相对复杂，满屏的样板代码伤痛欲绝，故引入可以解决这些问题的 `redux-form` (v6) 模块。本文大致翻译了官方文档一些比较重要的地方，结合官方Demo加入了一些特性。
+> React中没有类似Angular那样的双向数据绑定，在做一些表达复杂的后台类页面时，监听、赋值、传递、校验时编码相对复杂，满屏的样板代码伤痛欲绝，故引入可以解决这些问题的 `redux-form` (v6) 模块。本文大致翻译了官方文档一些比较重要的地方，结合官方Demo加入了一些特性，有些官方跑不起来的地方也进行了优化。
 
 
 * 项目地址: [https://github.com/tedyuen/react-redux-form-v6-example](https://github.com/tedyuen/react-redux-form-v6-example)
@@ -35,6 +35,7 @@
    * [Async Validation](#AsyncValidation)
    * [Initialize From State](#initializeFromState)
    * [Selecting Form Values](#selectingFormValues)
+   * [Field Array](#demofieldArray)
 
 
 <h2 id="getting-started">起步</h2>
@@ -1050,3 +1051,11 @@ SelectingFormValuesForm = connect(state => {
 
 export default SelectingFormValuesForm
 ```
+
+<h3 id="demofieldArray"> Demo: Field Array </h3>
+
+这个例子展示了怎样构建一个字段组，包括拥有一个字段的和拥有一组字段的字段组。在这个表单里，每一个俱乐部的成员都有姓和名，还有一个兴趣的列表。以下这些数组的操作 `insert, pop, push, remove, shift, swap, unshift` 行为是被允许的:(更多详细的内容可以参考[FieldArray Docs](#FieldArray))
+
+* 一个 `action` 的原始构造
+* 通过您表单的 `this.props.array` 对象绑定的 `action`
+* 同时绑定表单和通过 `FieldArray` 组件获得的对象上的数组的 `action`

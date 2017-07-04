@@ -21,22 +21,22 @@ class Simple extends Component {
   render(){
     return (
       <div id="page-wrapper">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-6 col-lg-6 col-sm-12">
-                <div className="white-box">
-                  <h3>Simple Form</h3>
-                  <SimpleForm onSubmit={this.onSubmit}></SimpleForm>
-                </div>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-6 col-lg-6 col-sm-12">
+              <div className="white-box">
+                <h3>Simple Form</h3>
+                <SimpleForm onSubmit={this.onSubmit}></SimpleForm>
               </div>
-              <div className="col-md-6 col-lg-6 col-sm-12">
-                <div className="white-box">
-                  <Values form="simple"/>
-                </div>
+            </div>
+            <div className="col-md-6 col-lg-6 col-sm-12">
+              <div className="white-box">
+                <Values form="simple"/>
               </div>
             </div>
           </div>
         </div>
+      </div>
     )
   }
 }

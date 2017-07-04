@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/tedyuen/react-redux-form-v6-example.git"
   },
-  "homepage" : "http://tedyuen.github.io/redux-form-demo",
+  "homepage": "http://tedyuen.github.io/redux-form-demo",
   "license": "MIT",
   "contributors": [
     {
