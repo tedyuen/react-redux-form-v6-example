@@ -65,6 +65,13 @@ class SideBar extends Component {
                   <span className="hide-menu">Normalizing</span>
                 </Link>
               </li>
+              <li>
+                <Link to="/project/wizard" className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon=")"></i>
+                  <span className="hide-menu">Wizard</span>
+                </Link>
+              </li>
+
 
             </ul>
           </div>

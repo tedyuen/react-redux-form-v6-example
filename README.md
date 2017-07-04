@@ -38,7 +38,7 @@
    * [Field Array](#demofieldArray)
    * [Remote Submit](#remoteSubmit)
    * [Field Normalizing](#normalizing)
-
+   * [Wizard](#Wizard)
 
 <h2 id="getting-started">起步</h2>
 
@@ -1137,4 +1137,70 @@ const normalizePhone = value => {
   }
   return `${onlyNums.slice(0, 3)}-${onlyNums.slice(3, 6)}-${onlyNums.slice(6, 10)}`
 }
+```
+<h3 id="Wizard"> Demo: Wizard </h3>
+
+一种常见的UI设计模式是把一个单一的表单分割成几组分开的表单形式，最为熟知的就是 `Wizard`。使用 `redux-form` 的话有好多方式可以来做这种设计，但最简单和最推荐的方式是遵循一下几种指示:
+
+* 把每一个页面都用同一个表单名字连接到 `reduxForm()`
+* 指定 `destroyOnUnmount`为 `false` 就可以在表单组件卸载的时候保存表单数据
+* 你可以为整个表单指定一个同步验证函数
+* 使用 `onSubmit` 来触发进入下一步，因为它强制运行验证函数
+
+需要由你自己来实现的:
+
+* 在提交成功之后手动调用 `props.destory()`
+
+例子里的代码主要列出控制 `Wizard` 的组件，其他组件的用法已被我们熟知。
+
+```jsx
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import WizardFormFirstPage from './WizardFormFirstPage'
+import WizardFormSecondPage from './WizardFormSecondPage'
+import WizardFormThirdPage from './WizardFormThirdPage'
+
+class WizardForm extends Component {
+  constructor(props) {
+    super(props)
+    this.nextPage = this.nextPage.bind(this)
+    this.previousPage = this.previousPage.bind(this)
+    this.state = {
+      page: 1
+    }
+  }
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+  }
+
+  previousPage() {
+    this.setState({ page: this.state.page - 1 })
+  }
+
+  render() {
+    const { onSubmit } = this.props
+    const { page } = this.state
+    return (
+      <div>
+        {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
+        {page === 2 &&
+          <WizardFormSecondPage
+            previousPage={this.previousPage}
+            onSubmit={this.nextPage}
+          />}
+        {page === 3 &&
+          <WizardFormThirdPage
+            previousPage={this.previousPage}
+            onSubmit={onSubmit}
+          />}
+      </div>
+    )
+  }
+}
+
+WizardForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+}
+
+export default WizardForm
 ```

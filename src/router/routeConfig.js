@@ -9,6 +9,7 @@ import {SelectingFormValues} from '../components/demo/selectingFormValues';
 import {FieldArray} from '../components/demo/fieldArrays';
 import {RemoteSubmit} from '../components/demo/remoteSubmit';
 import {Normalizing} from '../components/demo/normalizing';
+import {Wizard} from '../components/demo/wizard';
 
 const PROJECT = '/project'
 const routes = [
@@ -55,6 +56,10 @@ const routes = [
       {
         path: PROJECT+'/normalizing',
         component:Normalizing
+      },
+      {
+        path: PROJECT+'/wizard',
+        component:Wizard
       }
     ]
   }
