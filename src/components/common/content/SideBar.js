@@ -35,6 +35,12 @@ class SideBar extends Component {
                   <li> <Link to="/project/asyncValidation">Async Validation</Link> </li>
                 </ul>
               </li>
+              <li>
+                <Link to="/project/initializeFromState" className="waves-effect active">
+                  <i className="linea-icon linea-basic fa-fw" data-icon="&#xe001;"></i>
+                  <span className="hide-menu">Initialize From State</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

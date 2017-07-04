@@ -4,6 +4,8 @@ import {SyncValidation} from '../components/demo/syncValidation';
 import {FieldLevelValidation} from '../components/demo/fieldLevelValidation';
 import {SubmitValidation} from '../components/demo/submitValidation';
 import {AsyncValidation} from '../components/demo/asyncValidation';
+import {InitializeFromState} from '../components/demo/initializeFromState';
+
 const PROJECT = '/project'
 const routes = [
   {
@@ -29,6 +31,10 @@ const routes = [
       {
         path: PROJECT+'/asyncValidation',
         component: AsyncValidation
+      },
+      {
+        path: PROJECT+'/initializeFromState',
+        component: InitializeFromState
       }
 
 

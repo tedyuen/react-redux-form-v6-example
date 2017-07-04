@@ -33,6 +33,7 @@
    * [Field-Level Validation](#FieldLevelValidation)
    * [Submit Validation](#SubmitValidation)
    * [Async Validation](#AsyncValidation)
+   * [Initialize From State](#initializeFromState)
 
 
 <h2 id="getting-started">起步</h2>
@@ -995,3 +996,24 @@ DEMO中没什么花头，和官方一样，就是基于 `SyncValidation` 把表�
 2. 当一个字段的同步验证错误时，那它的失去焦点的时候将不会触发异步验证。
 
 Demo中的自定义 `<Field/>` 的 `meta` 中有一个 `asyncValidating`，来标识异步验证的 `promise` 对象的 `Pending` 状态。
+
+<h3 id="initializeFromState"> Demo: Initialize From State </h3>
+
+通过 `initialValues` 属性或 `reduxForm()` 配置的参数所提供的数据，被加载到表单 `state` 中，并且把这些初始化数据作为原始数据(pristine)。当 `reset()` 触发的时候，也会返回这些值。除了保存这些 `pristine` 值，初始化您表单的这个操作也会替换表单里已经存在的值。
+
+在许多应用中，这些值可能是来自服务器并且储存在其他 `reducer` 中的。想要得到这些值，你需要使用 `connect()` 去自己链接 `state` 然后映射这些数据到您的 `initialValues` 属性里。
+
+默认情况下，你只需要通过 `initialValues` 初始化您的表单组件一次即可。目前有2种方法可以通过新的 `pristine` 值重新初始化表单。
+
+1. 传递一个 `enableReinitialize` 属性或配置 `reduxForm()` 中的参数为true就可以让表单在每次 `initialValues` 属性变化的时候重新初始化，生成一个新的 `pristine` 值。如果想要在重新初始化的时候保持已改变过的表单的值，可以设置 `keepDirtyOnReinitialize` 为true。默认情况下，重新初始化会将 `pristine` 值替换掉已改变过的表单的值。
+2. 发出一个 `INITIALIZE` action(用 `redux-form` action生成器生成)。
+
+此Demo较之官方Demo，增加了 `enableReinitialize` 和 `keepDirtyOnReinitialize` 的用法。以下是代码片段。
+
+```jsx
+InitializeFromStateForm = reduxForm({
+  form: 'initializeFromState',// a unique identifier for this form
+  enableReinitialize:true,
+  keepDirtyOnReinitialize:true,// 这个值表示重新初始化表单后，不替换已更改的值，可以用clear来测试
+})(InitializeFromStateForm)
+```
