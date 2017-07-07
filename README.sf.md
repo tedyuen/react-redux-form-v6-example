@@ -1,5 +1,3 @@
-# React-Redux技术栈——之redux-form详解
-
 > React中没有类似Angular那样的双向数据绑定，在做一些表单复杂的后台类页面时，监听、赋值、传递、校验时编码相对复杂，满屏的样板代码伤痛欲绝，故引入可以解决这些问题的 `redux-form` (v6) 模块。本文大致翻译了官方文档一些比较重要的地方，结合官方Demo加入了一些特性，有些官方跑不起来的地方也进行了优化。
 
 
@@ -8,39 +6,8 @@
 * 本地演示方法: `npm install && npm run start`
 * 如对翻译有困惑，请移步[官方文档](http://redux-form.com/6.8.0/)，对Demo的理解有异议欢迎留言或私信。转载请注明出处[Ted Yuen](https://github.com/tedyuen/react-redux-form-v6-example/blob/master/README.md)
 
-## 目录
 
-* [起步](#getting-started)
-* [表单value的生命周期](#field-value-lifecycle)
-* [API](#api)
-   * [reduxForm(config:Object)](#redux-form)
-   * [props](#props)
-   * [Field](#Field)
-   * [Fields](#Fields)
-   * [FieldArray](#FieldArray)
-   * [Form](#Form)
-   * [FormSection](#FormSection)
-   * [formValues](#formValues)
-   * [formValueSelector](#formValueSelector)
-   * [reducer](#reducer)
-   * [reducer.plugin](#reducer.plugin)
-   * [SubmissionError](#SubmissionError)
-   * [Action Creators](#Action-Creators)
-   * [Selectors](#Selectors)
-* [Examples](#Examples)
-   * [Simple Form](#Simple)
-   * [Sync Validation](#snycValidation)
-   * [Field-Level Validation](#FieldLevelValidation)
-   * [Submit Validation](#SubmitValidation)
-   * [Async Validation](#AsyncValidation)
-   * [Initialize From State](#initializeFromState)
-   * [Selecting Form Values](#selectingFormValues)
-   * [Field Array](#demofieldArray)
-   * [Remote Submit](#remoteSubmit)
-   * [Field Normalizing](#normalizing)
-   * [Wizard](#Wizard)
-
-<h2 id="getting-started">起步</h2>
+## 起步
 
 #### 在使用 `redux-form` 之前，需要具备以下基础:
 
@@ -201,7 +168,7 @@ class ContactPage extends React.Component {
 }
 ```
 
-<h2 id="field-value-lifecycle">表单value的生命周期</h2>
+## 表单value的生命周期
 
 本节对理解您的组件value通过 `redux-form` 的流向很重要
 
@@ -225,11 +192,11 @@ class ContactPage extends React.Component {
 
 ![value lifecycle](https://github.com/erikras/redux-form/raw/master/docs/valueLifecycle.png)
 
-<h2 id="api">API</h2>
+## API
 
 限于篇幅问题，在此只列举每一种api常用的使用方法，具体请移步[官方API文档](http://redux-form.com/6.8.0/docs/api/)
 
-<h4 id="redux-form">API:reduxForm(config:Object)</h4>
+### reduxForm(config:Object)
 
 通过配置一些参数创建一个可以让你配置你的表单的修饰器。诸如配置如何做表单验证、提交成功或失败的回调、获取或失去焦点的action发送、prop命名空间等，具体例子会在之后的demo中介绍。
 
@@ -256,7 +223,7 @@ import { reduxForm } from 'redux-form';  // ES6
 * `shouldAsyncValidate(params) : boolean [optional]` : 异步验证。
 * `touchOnBlur : boolean [optional]` & `touchOnChange : boolean [optional]` : 标识 `onBlur` 或 `onChange` 的触发。
 
-<h4 id="props">API:props</h4>
+### props
 
 列出全部当前页面由 `redux-form` 生成用于修饰此表单组件的props。
 
@@ -282,7 +249,7 @@ class SimpleForm extends Component {
    * 组件内部直接调用 `<form onSubmit={handleSubmit}>`
    * 赋值给prop外部调用 `<MyDecoratedForm onSubmit={data => {//do something with data.}}/>`
 
-<h4 id="Field">API:Field</h4>
+### Field
 
 所有您需要与 `store` 数据连接的表单组件，都可以用 `<Field/>`。在正确使用它之前，有三条基本概念您需要了解清楚:
 
@@ -358,7 +325,7 @@ const renderField = (field) => (
 <Field component="input" type="text"/>
 ```
 
-<h4 id="Fields">API:Fields</h4>
+### Fields
 
 与 `Field` 相似，但是它同时使用多个fields。`<Fields/>` 在 `name` 属性中使用一组表单name的数组，而不是用单一一个 `name` 属性来表示。
 
@@ -376,7 +343,7 @@ import { Fields } from 'redux-form';  // ES6
 
 与 `<Field/>` 差不多，有2种使用方式，组件与无状态组件，这里不详细介绍。
 
-<h4 id="FieldArray"> API:FieldArray </h4>
+### FieldArray
 
 这个组件可以让你定义一系列的表单，它的工作原理和 `<Field/>` 一样。通过 `<Field/>`，给它一个 `name`，就可以映射到 `Redux state`中的指定位置。组件也可以通过连接到 `Redux state` 的 `props` 进行渲染。
 
@@ -394,7 +361,7 @@ import { FieldArray } from 'redux-form';  // ES6
 
 后面Demo里会具体介绍
 
-<h4 id="Form"> API:Form </h4>
+### Form
 
 `Form` 组件对React的form组件进行了简单的封装，用以触发用 `redux-form` 修饰的组件的 `onSubmit` 函数。
 
@@ -419,7 +386,7 @@ import { Form } from 'redux-form';  // ES6
 
 只需要将您组件中所有 `<form>` 替换成 `<Form>` 即可。
 
-<h4 id="FormSection"> API:FormSection </h4>
+### FormSection
 
 `FormSection` 可以很简单地将现有的表单组件分割成更小的组件，用以在复杂的表单中进行复用。它是通过明确规定好的 `Field`、`Fields`和`FieldArray`字组件 `name`的前缀来完成此功能的。
 
@@ -520,7 +487,7 @@ Address.defaultProps = {
 */
 ```
 
-<h4 id="formValues"> API:formValues() </h4>
+### formValues()
 
 作为一个修饰，可以读取当前表单的 `value`。当表单子组件的 `onChange` 依赖于当前表单里的值，很有用。
 
@@ -542,7 +509,7 @@ const ItemList = formValues({showVat: 'withVat'})(MyItemizedList)
 
 这些装饰组件现在分别拥有了 `withVat`与`showVat`的 `props`。
 
-<h4 id="formValueSelector"> API:formValueSelector() </h4>
+### formValueSelector()
 
 `formValueSelector` 的API可以很方便的 `connect()` `state`的值到表单的 `value` 里。它可以通过表单的 `name` 为你的表单创建一个 `value` 拾取器。
 
@@ -595,7 +562,7 @@ connect(
 )(MyFormComponent)
 ```
 
-<h4 id="reducer"> API:reducer </h4>
+### reducer
 
 表单的`reducer`用来安装您的 `Redux state` 到您的表单中。
 
@@ -633,7 +600,7 @@ const reducer = combineReducers(reducers);
 const store = createStore(reducer);
 ```
 
-<h4 id="reducer.plugin"> API:reducer.plugin </h4>
+### reducer.plugin
 
 表单中返回一个通过附加指定功能 `reducers` 用以接受 `action` 的`reducer`。 它的参数应该是一个能映射 `formName`和一个`(state, action) => nextState` `reducer` 关系的一个对象。通过每一个 `reducer`的state只能是属于那个表单的一个片段。
 
@@ -681,7 +648,7 @@ const reducer = combineReducers(reducers)
 const store = createStore(reducer)
 ```
 
-<h4 id="SubmissionError"> API: SubmissionError </h4>
+### SubmissionError
 
 这个 `throwable error` 用于从 `onSubmit` 返回一个表单验证错误信息。目的是用来区分 `promise` 失败的原因究竟是验证错误、AJAX I/O错误还是其他服务器错误。如果它是由于表单里 `{ field1: 'error', field2: 'error' }`产生的错误，那这个错误将会被添加到每一个标记过错误属性的字段里，就像异步表单验证错误一样。如果有一个错误没有指定的字段，但是应用到了整个表单，你需要继续传递它，就好像是某个字段调用的 `_error`一样，然后他会给出一个错误的属性。(就是不管他往外抛)
 
@@ -709,13 +676,13 @@ import { SubmissionError } from 'redux-form';  // ES6
 }/>
 ```
 
-<h4 id="Action-Creators"> API: Action Creators </h4>
+### Action Creators
 
 `redux-form` 对外开放了所有的内部 `action creators`，允许你按找你的意愿来完成对分发 `action ` 的控制。进而，官方推荐您在完成您大部分需求的时候，对于那些表单里指定需求的字段的 `action`来说，当作这些 `action` 已经绑定到 `dispatch`一样，直接将这些 `action` 通过 `props` 传递。
 
 具体 `action` 请参考官方文档。
 
-<h4 id="Selectors"> API: Selectors </h4>
+### Selectors
 
 `redux-form` 提供了一系列有用的 `Redux state` 拾取器，可以在app的任何地方任何表单内拾取 `state` 上的数据。
 
@@ -761,10 +728,10 @@ MyComponent = connect(
 )(MyComponent)
 ```
 
-<h2 id="Examples">Examples</h2>
+## Examples
 
 
-<h3 id="Simple"> Demo: Simple Form </h3>
+### Simple Form
 
 这个例子把表单所有基本的元素都列了出来，和官方Demo有所区别的是，增加了2个 `type` 为 `file` 的 `Field` (直接在 `Field` 中使用 `file` 的类型会有点问题)，一个是使用了jQuery的 [dropify](https://github.com/JeremyFagis/dropify) 编写的上传单个文件的组件 `MyDropify`，一个是使用了 `dropzone` 编写的上传多个文件的组件 `MyDropzone` (在这里使用了 [react-dropzone](https://github.com/okonet/react-dropzone) 和 `redux-form` 的组合)。官方的例子不单独介绍了，主要贴一下两个自定义 `Field`。
 
@@ -877,7 +844,7 @@ export default MyDropzone;
 
 `react-dropzone` 和jQuery版本的有所区别，使用过 `dropzone` 的应该都知道选择文件可以渲染到框体内，react版本的 `dropzone` 原声不带这个功能，但它提供了详尽的方法可以自己实现很多功能，比如选择完文件可以渲染到组件中，有时间我再完善此功能。
 
-<h3 id="snycValidation"> Demo: Sync Validation </h3>
+### Sync Validation
 
 同步的表单验证，包括了错误和警告型配置。官方Demo中只演示了输入框的验证，而这里准备了包括 `radio` `select` `textarea` 的验证方式(`checkbox` 我会在单独的一章讲解)，调用方法可以参见本文的源代码。
 
@@ -971,11 +938,11 @@ const textareaField = ({
 export default textareaField;
 ```
 
-<h3 id="FieldLevelValidation"> Demo: Field-Level Validation </h3>
+### Field-Level Validation
 
 除了提供一个验证方法一起验证表单里的值这种方法之外，还可以对每一个 `<Field/>` 或 `<FieldArray/>` 分别做验证。官方给的Demo已经足够说明问题了，在这里只针对上面的 `Sync Validation` 作简单的改写。具体请看代码。
 
-<h3 id="SubmitValidation"> Demo: Submit Validation </h3>
+### Submit Validation
 
 一种服务器表单验证较好的方法是在调用 `onSubnit` 之后返回一个 `rejected` 的 `promise` 对象。当您的表单被提交时，有2种方法提供给 `redux-form` 这个函数。
 
@@ -986,7 +953,7 @@ export default textareaField;
 
 DEMO中没什么花头，和官方一样，就是基于 `SyncValidation` 把表单验证的逻辑放在了提交后的逻辑中，并抛出了一个 `SubmissionError`。
 
-<h3 id="AsyncValidation"> Demo: Async Validation </h3>
+### Async Validation
 
 服务器表单验证的方式比较推荐使用[Submit Validation](#SubmitValidation)，但是可能存在当您填写表单的时候，同时需要服务器端来验证。有一个经典的例子是当一个用户选取一个值，比如用户名，它必须是您系统中唯一的一个值。
 
@@ -1001,7 +968,7 @@ DEMO中没什么花头，和官方一样，就是基于 `SyncValidation` 把表�
 
 Demo中的自定义 `<Field/>` 的 `meta` 中有一个 `asyncValidating`，来标识异步验证的 `promise` 对象的 `Pending` 状态。
 
-<h3 id="initializeFromState"> Demo: Initialize From State </h3>
+### Initialize From State
 
 通过 `initialValues` 属性或 `reduxForm()` 配置的参数所提供的数据，被加载到表单 `state` 中，并且把这些初始化数据作为原始数据(pristine)。当 `reset()` 触发的时候，也会返回这些值。除了保存这些 `pristine` 值，初始化您表单的这个操作也会替换表单里已经存在的值。
 
@@ -1022,7 +989,7 @@ InitializeFromStateForm = reduxForm({
 })(InitializeFromStateForm)
 ```
 
-<h3 id="selectingFormValues"> Demo: Selecting Form Values </h3>
+### Selecting Form Values
 
 有时候您希望访问表单组件中某些字段的值，你需要在 `store` 中直接 `connect()` 表单的值。在一般的使用情况下，`redux-form` 通过 `formValueSelector` 提供了一个方便的选择器。
 
@@ -1054,7 +1021,7 @@ SelectingFormValuesForm = connect(state => {
 export default SelectingFormValuesForm
 ```
 
-<h3 id="demofieldArray"> Demo: Field Array </h3>
+### Field Array
 
 这个例子展示了怎样构建一个字段组，包括拥有一个字段的和拥有一组字段的字段组。在这个表单里，每一个俱乐部的成员都有姓和名，还有一个兴趣的列表。以下这些数组的操作 `insert, pop, push, remove, shift, swap, unshift` 行为是被允许的:(更多详细的内容可以参考[FieldArray Docs](#FieldArray))
 
@@ -1062,7 +1029,7 @@ export default SelectingFormValuesForm
 * 通过您表单的 `this.props.array` 对象绑定的 `action`
 * 同时绑定表单和通过 `FieldArray` 组件获得的对象上的数组的 `action`
 
-<h3 id="remoteSubmit"> Demo: Remote Submit </h3>
+### Remote Submit
 
 这个例子演示了一个表单如何从一个无关的组件或中间件中发送的一个 `SUBMIT` 的action来执行提交逻辑。
 
@@ -1096,7 +1063,7 @@ const RemoteSubmitButton = ({ dispatch }) => (
 export default connect()(RemoteSubmitButton)
 ```
 
-<h3 id="normalizing"> Demo: Field Normalizing </h3>
+### Field Normalizing
 
 当您需要在用户输入和 `store` 中的数据之间施加某些控制，你可以使用 `normalizer`。`normalizer` 就是一个每当值改变是，可以在保存到 `store` 之前进行某些转换的一个函数。
 
@@ -1138,7 +1105,7 @@ const normalizePhone = value => {
   return `${onlyNums.slice(0, 3)}-${onlyNums.slice(3, 6)}-${onlyNums.slice(6, 10)}`
 }
 ```
-<h3 id="Wizard"> Demo: Wizard </h3>
+### Wizard
 
 一种常见的UI设计模式是把一个单一的表单分割成几组分开的表单形式，最为熟知的就是 `Wizard`。使用 `redux-form` 的话有好多方式可以来做这种设计，但最简单和最推荐的方式是遵循一下几种指示:
 
