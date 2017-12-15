@@ -13,6 +13,11 @@ const data1 = {
   email: 'tedyuen.goo@gmail.com',
   employed: true,
   favoriteColor: 'Blue',
+  cbArray: [
+    true,
+    "",
+    true
+  ],
   bio: 'Born to write amazing Redux code.'
 }
 const data2 = {
@@ -23,6 +28,11 @@ const data2 = {
   email: 'tedyuen@ithooks.com',
   employed: false,
   favoriteColor: 'Orange',
+  cbArray: [
+    "",
+    "",
+    true
+  ],
   bio: 'Welcome to china!'
 }
 const colors = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet']
@@ -31,6 +41,12 @@ class InitializeFromStateForm extends Component{
 
   render(){
     const { handleSubmit, load, pristine, reset, submitting, initialValues } = this.props
+    let cbChecks = [
+      
+    ]
+    for(let index=0;index<8;index++){
+      cbChecks.push(`cbArray[${index}]`)
+    }
     return(
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -109,11 +125,7 @@ class InitializeFromStateForm extends Component{
           <label>checkbox array</label>
           <label className="radio-inline">
             <Fields
-              names={[
-                'cbArray[0]',
-                'cbArray[1]',
-                'cbArray[2]',
-              ]}
+              names={cbChecks}
               id="cbArray"
               component={checkArray}
               className="checkbox checkbox-success"

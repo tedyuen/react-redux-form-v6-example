@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 
 const renderFields = (fields) => (
   <div>
-    <div className="input-row">
-      <input {...fields.cbArray[0].input} type="checkbox"/>
-    </div>
-    <div className="input-row">
-      <input {...fields.cbArray[1].input} type="checkbox"/>
-    </div>
-    <div className="input-row">
-      <input {...fields.cbArray[2].input} type="checkbox"/>
-    </div>
+    {fields.cbArray.map((cb,index) => 
+      <div className="input-row" key={index}>
+        <input {...cb.input} type="checkbox" checked={cb.input.value===true?true:false}/>
+      </div>
+    )}
   </div>
+  
 )
 
 export default renderFields;
