@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Field, reduxForm } from 'redux-form'
+import { Field,Fields, reduxForm } from 'redux-form'
 import { load as loadAccount } from './account'
+import checkArray from './checkArray'
 
 const data1 = {
   // used to populate "account" reducer when "Load" is clicked
@@ -100,6 +101,21 @@ class InitializeFromStateForm extends Component{
               id="employed"
               component="input"
               type="checkbox"
+              className="checkbox checkbox-success"
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>checkbox array</label>
+          <label className="radio-inline">
+            <Fields
+              names={[
+                'cbArray[0]',
+                'cbArray[1]',
+                'cbArray[2]',
+              ]}
+              id="cbArray"
+              component={checkArray}
               className="checkbox checkbox-success"
             />
           </label>
