@@ -195,7 +195,7 @@ class ContactPage extends React.Component {
   }
   render() {
     return (
-      <ContactForm onSubmit={this.submit} />
+      <ContactForm handleSubmit={this.submit} />
     )
   }
 }
